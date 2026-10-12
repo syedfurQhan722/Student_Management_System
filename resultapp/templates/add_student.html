@@ -1,0 +1,71 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div>
+   <h2 class="mb-4"><i class="fas fa-user-plus "></i>Add Student</h2>
+
+   {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-{% if m.tags == 'error' %}danger{% else %}{{m.tags}}{% endif %} alert-dismissible fade show" roll="alert">
+               {{m}}
+               <button type="button" class="btn-close"  data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+         {% csrf_token %}
+         <div  class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="Enter your full name">
+         </div>
+
+         <div  class="mb-3">
+            <label for="rollid" class="form-label">Roll ID</label>
+            <input type="text" class="form-control" id="rollid" name="rollid" required placeholder="Roll number" maxlength="5">  
+         </div>
+
+         <div  class="mb-3">
+            <label for="emailid" class="form-label">Email ID</label>
+            <input type="text" class="form-control" id="emailid" name="emailid" required placeholder="Email ID">  
+         </div>
+
+          <div  class="mb-3">
+            <label class="gender" class="form-label">Gender</label><br/>
+            <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="gender" name="gender" required placeholder="Email ID">
+            <label class="form-check-label">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="gender" name="gender" required placeholder="Email ID">
+            <label class="form-check-label">Female</label>
+            </div> 
+         </div>
+             
+         </div>
+
+          <div  class="mb-3">
+            <label for="class" class="form-label">Select Class</label>
+            <select class="form-select" id="class" name="class" required>
+                <option value="">-- Select Class --</option>
+                {% for i in classes %}
+                <option value="{{i.id}}">{{i.class_name}} - Section {{i.section}}</option>
+                {% endfor %}
+             </select>
+         </div>
+
+         <div  class="mb-3">
+            <label for="dob" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="dob" name="dob" required placeholder="dob">  
+         </div>
+
+
+         <button type="submit" class="btn btn-success">
+           <i class="fas fa-check-circle me-1"></i> Submit
+         </button>
+    </form>
+
+</div>
+
+{% endblock %}

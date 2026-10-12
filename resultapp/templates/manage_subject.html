@@ -1,0 +1,54 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div>
+   <h2 class="mb-4"><i class="fas fa-book "></i>Manage Subject</h2>
+
+   {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-{% if m.tags == 'error' %}danger{% else %}{{m.tags}}{% endif %} alert-dismissible fade show" roll="alert">
+               {{m}}
+               <button type="button" class="btn-close"  data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+      
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>SL.no</th>
+                        <th>Subject Name</th>
+                        <th>Subject Code</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in subjects %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.subject_name}}</td>
+                        <td>{{i.subject_code}}</td>
+                        <td>{{i.creation_date}}</td>
+                        <td>{{i.updation_date}}</td>
+                        <td>
+                            <a href="{% url 'edit_subject' i.id %}" class="btn btn-info btn-sm"><i class ="fas fa-edit"></i>Edit</a>
+                         <a href="?delete={{i.id}}" onclick="return confirm('Are you sure you want to delele this Subject?')" class="btn btn-danger btn-sm"><i class ="fas fa-trash-alt"></i>Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No Subjects found.</td>
+                    </tr>
+                    {% endfor %}
+                
+                </tbody>
+            </table>
+
+
+</div>
+
+{% endblock %}
